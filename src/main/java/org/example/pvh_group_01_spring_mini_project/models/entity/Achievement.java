@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.pvh_group_01_spring_mini_project.util.UUIDTypeHandler;
 
 import java.util.UUID;
 
@@ -11,8 +12,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Achievement {
-    private UUID achievementId = UUID.randomUUID();
+public class Achievement extends UUIDTypeHandler {
+    private UUID achievementId;
     private String title;
     private String description;
     private String badge;
