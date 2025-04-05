@@ -15,33 +15,4 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
-
-//     No Database
-//    @Bean
-//    public UserDetailsService userDetailsService(){
-//        UserDetails user = User.builder()
-//                .username("visa")
-//                .password(passwordEncoder().encode("123"))
-//                .roles("USER").build();
-//        UserDetails admin = User.builder()
-//                .username("piseth")
-//                .password(passwordEncoder().encode("345"))
-//                .roles("ADMIN").build();
-//        return new InMemoryUserDetailsManager(user, admin);
-//    }
-
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-//        http.cors(Customizer.withDefaults())
-//                .csrf(AbstractHttpConfigurer::disable)
-//                .authorizeHttpRequests(requests ->
-//                        requests.requestMatchers("/api/v1/admin").hasRole("ADMIN")
-//                                .requestMatchers("/api/v1/user").hasAnyRole("USER","ADMIN")
-//                                .requestMatchers("/v3/api-docs/**",
-//                                        "/swagger-ui/**",
-//                                        "/swagger-ui.html","/api/v1/authentication").permitAll()
-//                                .anyRequest().authenticated())  // allow only already login
-//                .httpBasic(Customizer.withDefaults());
-//        return http.build();
-//    }
 }

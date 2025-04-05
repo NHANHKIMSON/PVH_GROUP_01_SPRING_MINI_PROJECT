@@ -1,6 +1,6 @@
 package org.example.pvh_group_01_spring_mini_project.exception;
 
-import org.example.visa_18_mony_visa_pvh_spring_homework002.models.dto.respone.ErrorRespone;
+import org.example.pvh_group_01_spring_mini_project.models.dto.response.ErrorRespone;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
