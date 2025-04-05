@@ -3,6 +3,7 @@ package org.example.pvh_group_01_spring_mini_project.models.dto.request;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.pvh_group_01_spring_mini_project.enumeration.Frequency;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -11,9 +12,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class HabitLogRequest {
-    private enum status{
-        COMPLETED,
-        MISSED
-    }
+    private Frequency status;
     private Integer habitId;
 }

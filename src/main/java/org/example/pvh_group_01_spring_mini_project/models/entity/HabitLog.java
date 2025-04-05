@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.pvh_group_01_spring_mini_project.enumeration.Frequency;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,10 +17,7 @@ import java.util.UUID;
 public class HabitLog {
     private UUID habitLogId = UUID.randomUUID();
     private LocalDate logDate;
-    private enum status{
-        COMPLETED,
-        MISSED
-    }
+    private Frequency status;
     private Integer xpEarned;
     private Habit habit;
     private LocalDateTime createdAt;
