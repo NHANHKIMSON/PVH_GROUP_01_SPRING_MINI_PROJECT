@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class File {
+public class FileMetaData {
     private String fileName;
     private String fileType;
     private String fileUrl;
