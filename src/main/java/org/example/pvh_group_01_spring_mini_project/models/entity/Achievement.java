@@ -12,7 +12,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 public class Achievement {
-    private UUID achievementId = UUID.randomUUID();
+    private UUID achievementId;
     private String title;
     private String description;
     private String badge;
