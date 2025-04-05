@@ -2,6 +2,8 @@ CREATE DATABASE gamified_Habit_Tracker;
 
 DROP DATABASE gamified_Habit_Tracker;
 
+CREATE DATABASE gamified_Habit_Tracker;
+
 CREATE TABLE achievement(
                             achievement_id uuid PRIMARY KEY,
                             title VARCHAR(50),
@@ -16,7 +18,7 @@ CREATE TABLE app_users(
                           email VARCHAR(50),
                           password VARCHAR(50),
                           level INTEGER,
-                          xp  INTEGER,
+                          xp INTEGER,
                           profile_image VARCHAR(50),
                           is_verified BOOLEAN,
                           created_at timestamp
@@ -31,6 +33,8 @@ CREATE TABLE habits(
                        app_user_id uuid,
                        created_at timestamp,
                        FOREIGN KEY(app_user_id) REFERENCES app_users(app_user_id)
+                           ON DELETE CASCADE
+                           ON UPDATE CASCADE
 );
 
 CREATE TABLE habit_logs(
@@ -40,14 +44,20 @@ CREATE TABLE habit_logs(
                            xp_earned INTEGER,
                            habit_id uuid,
                            FOREIGN KEY(habit_id) REFERENCES habits(habit_id)
+                               ON DELETE CASCADE
+                               ON UPDATE CASCADE
 );
 
 CREATE TABLE app_user_achievements(
                                       app_user_achievement_id uuid PRIMARY KEY,
                                       app_user_id uuid,
                                       achievement_id uuid,
-                                      FOREIGN KEY(app_user_id) REFERENCES app_users(app_user_id),
+                                      FOREIGN KEY(app_user_id) REFERENCES app_users(app_user_id)
+                                          ON DELETE CASCADE
+                                          ON UPDATE CASCADE,
                                       FOREIGN KEY(achievement_id) REFERENCES achievement(achievement_id)
+                                          ON DELETE CASCADE
+                                          ON UPDATE CASCADE
 );
 
 -- Insert 5 achievements
@@ -57,6 +67,7 @@ INSERT INTO achievement (achievement_id, title, description, badge, xp_required)
                                                                                      ('10000000-0000-4000-a000-000000000003', 'Habit Master', 'Create and maintain 5 active habits', 'master_badge.png', 500),
                                                                                      ('10000000-0000-4000-a000-000000000004', 'Perfect Week', 'Complete all habits for an entire week', 'perfect_week_badge.png', 300),
                                                                                      ('10000000-0000-4000-a000-000000000005', 'Milestone Maker', 'Reach level 10', 'milestone_badge.png', 1000);
+
 
 -- Insert 5 app users
 INSERT INTO app_users (app_user_id, username, email, password, level, xp, profile_image, is_verified, created_at) VALUES
@@ -82,6 +93,7 @@ INSERT INTO habit_logs (habit_log_id, log_date, status, xp_earned, habit_id) VAL
                                                                                  ('40000000-0000-4000-a000-000000000004', '2024-04-01 22:00:00', 'MISSED', 0, '30000000-0000-4000-a000-000000000004'),
                                                                                  ('40000000-0000-4000-a000-000000000005', '2024-04-02 20:30:00', 'COMPLETED', 100, '30000000-0000-4000-a000-000000000005');
 
+
 -- Insert 5 app user achievements
 INSERT INTO app_user_achievements (app_user_achievement_id, app_user_id, achievement_id) VALUES
                                                                                              ('50000000-0000-4000-a000-000000000001', '20000000-0000-4000-a000-000000000001', '10000000-0000-4000-a000-000000000001'),
@@ -90,8 +102,12 @@ INSERT INTO app_user_achievements (app_user_achievement_id, app_user_id, achieve
                                                                                              ('50000000-0000-4000-a000-000000000004', '20000000-0000-4000-a000-000000000003', '10000000-0000-4000-a000-000000000001'),
                                                                                              ('50000000-0000-4000-a000-000000000005', '20000000-0000-4000-a000-000000000004', '10000000-0000-4000-a000-000000000004');
 
+-- If want to make uuid random
+-- INSERT INTO achievement VALUES (gen_random_uuid(),'','','','');
+
+-- Sample queries to check data
 SELECT * FROM habits;
 SELECT * FROM achievement;
 SELECT * FROM app_user_achievements;
 SELECT * FROM app_users;
-SELECT * FROM habit_logs
+SELECT * FROM habit_logs;
