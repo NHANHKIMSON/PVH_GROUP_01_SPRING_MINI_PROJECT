@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 import java.sql.*;
 import java.util.UUID;
 
-@MappedTypes(UUID.class)
-@Component
+@MappedTypes(UUID.class) // updated
+@Component  // updated
 public class UUIDTypeHandler extends BaseTypeHandler<UUID> {
     @Override
     public void setNonNullParameter(PreparedStatement ps, int i, UUID parameter, JdbcType jdbcType) throws SQLException {

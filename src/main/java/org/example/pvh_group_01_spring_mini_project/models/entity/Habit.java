@@ -20,6 +20,6 @@ public class Habit {
     private Frequency frequency;
     private Boolean isActive;
 //    private Profile appUserResponse;
-    private UUID appUserId;
+    private UUID appUserId; // updated
     private LocalDateTime createAt;
 }

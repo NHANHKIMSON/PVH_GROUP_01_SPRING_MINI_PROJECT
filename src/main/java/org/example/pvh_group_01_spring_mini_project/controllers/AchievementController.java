@@ -1,5 +1,8 @@
 package org.example.pvh_group_01_spring_mini_project.controllers;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Negative;
+import jakarta.validation.constraints.NotNull;
 import org.example.pvh_group_01_spring_mini_project.models.dto.response.ApiRespones;
 import org.example.pvh_group_01_spring_mini_project.models.entity.Achievement;
 import org.example.pvh_group_01_spring_mini_project.service.AchievementService;

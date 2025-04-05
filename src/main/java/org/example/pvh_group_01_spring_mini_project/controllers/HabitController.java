@@ -1,6 +1,8 @@
 package org.example.pvh_group_01_spring_mini_project.controllers;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import org.example.pvh_group_01_spring_mini_project.models.dto.request.HabitRequest;
 import org.example.pvh_group_01_spring_mini_project.models.dto.response.ApiRespones;
 import org.example.pvh_group_01_spring_mini_project.models.entity.Habit;
@@ -24,7 +26,7 @@ public class HabitController {
     }
 
     @GetMapping
-    public ResponseEntity<ApiRespones<List<Habit>>> getAllHabits(@RequestParam(defaultValue = "1")  Integer page, @RequestParam(defaultValue = "10") Integer size){
+    public ResponseEntity<ApiRespones<List<Habit>>> getAllHabits(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer size){
         ApiRespones<List<Habit>> apiRespones = ApiRespones.<List<Habit>>builder()
                 .success(true)
                 .message("Fetched all habits successfully")
