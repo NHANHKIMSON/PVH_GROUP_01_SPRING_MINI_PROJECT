@@ -1,6 +1,9 @@
 CREATE DATABASE gamified_Habit_Tracker;
 
-DROP DATABASE gamified_Habit_Tracker;
+-- drop database gamified_Habit_Tracker;
+
+CREATE EXTENSION "uuid-ossp";
+
 
 CREATE DATABASE gamified_Habit_Tracker;
 
@@ -13,7 +16,7 @@ CREATE TABLE achievement(
 );
 
 CREATE TABLE app_users(
-                          app_user_id uuid PRIMARY KEY,
+                          app_user_id uuid default uuid_generate_v4() PRIMARY KEY,
                           username VARCHAR(50),
                           email VARCHAR(50),
                           password VARCHAR(50),
