@@ -14,7 +14,5 @@ import java.util.UUID;
 @AllArgsConstructor
 public class HabitLogRequest {
     private Frequency status;
-//    private Integer habitId; // here not Integer
-
     private UUID habitId;
 }
