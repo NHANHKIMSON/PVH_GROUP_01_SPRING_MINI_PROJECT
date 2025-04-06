@@ -45,7 +45,7 @@ public class UserAppServiceImpl implements UserAppService {
             return userAppRepository.updateOtp(users);
         } else {
             sendVerificationEmail(users.getEmail(), otp);
-            UserApp userApp = userAppRepository.save(users);
+//            UserApp userApp = userAppRepository.save(users);
             return userAppRepository.save(users);
         }
 
