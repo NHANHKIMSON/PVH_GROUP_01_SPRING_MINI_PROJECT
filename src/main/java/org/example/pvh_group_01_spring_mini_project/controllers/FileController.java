@@ -1,5 +1,6 @@
 package org.example.pvh_group_01_spring_mini_project.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.SneakyThrows;
 import org.example.pvh_group_01_spring_mini_project.models.dto.response.ApiRespones;
 import org.example.pvh_group_01_spring_mini_project.models.entity.FileMetaData;
@@ -23,6 +24,8 @@ public class  FileController {
         this.fileService = fileService;
     }
 
+
+    @Operation(summary = "Upload a file")
     @PostMapping(value = "/upload-file",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ApiRespones<FileMetaData>> uploadFile(@RequestPart(value = "file", required = true) MultipartFile file){
         ApiRespones<FileMetaData> respones = ApiRespones.<FileMetaData>builder()
@@ -35,7 +38,7 @@ public class  FileController {
         return ResponseEntity.ok(respones);
     }
 
-
+    @Operation(summary = "Preview a file")
     @SneakyThrows
     @GetMapping("/preview-file/{file-name}")
     public ResponseEntity<?> getFileByName(@PathVariable("file-name") String fileName){

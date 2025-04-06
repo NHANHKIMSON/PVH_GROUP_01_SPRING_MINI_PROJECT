@@ -3,6 +3,7 @@ package org.example.pvh_group_01_spring_mini_project.controllers;
 
 
 //This is after I have clone and write code from here
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.example.pvh_group_01_spring_mini_project.models.dto.request.HabitLogRequest;
 import org.example.pvh_group_01_spring_mini_project.models.dto.response.ApiRespones;
@@ -26,8 +27,9 @@ public class HabitLogController {
         this.habitLogService = habitLogService;
     }
 
+    @Operation(summary = "Create a new habit log")
     @PostMapping
-    public ResponseEntity<ApiRespones<HabitLog>> addAttendee(@RequestBody HabitLogRequest habitLogRequest ) {
+    public ResponseEntity<ApiRespones<HabitLog>> addHabitLog(@RequestBody HabitLogRequest habitLogRequest ) {
         HabitLog addHabitLog = habitLogService.addHabitLog(habitLogRequest);
         ApiRespones<HabitLog> response = ApiRespones.<HabitLog>builder()
                 .message("Habit Log added successfully")
@@ -39,6 +41,7 @@ public class HabitLogController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+    @Operation(summary = "Get all habit logs by habit name")
     @GetMapping("/{habit-id}")
     public ResponseEntity<ApiRespones<List<HabitLog>>> getAllHabitLogs(@Valid @RequestParam(defaultValue = "1") Integer page,
                                                                        @RequestParam(defaultValue = "10") Integer size,@PathVariable("habit-id") UUID habitLogId) {
