@@ -10,14 +10,19 @@ import org.springframework.http.HttpStatus;
 import java.time.LocalDateTime;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ApiRespones<T> {
+public class ApiResponceDelete<T> {
     private Boolean success;
     private String message;
     private HttpStatus status;
-    private T payload;
     private LocalDateTime timestamps;
+
+    public ApiResponceDelete(Habit habit) {
+        this.success = true;
+        this.message = "Success";
+        this.status = HttpStatus.OK;
+        this.timestamps = LocalDateTime.now();
+    }
 }
 

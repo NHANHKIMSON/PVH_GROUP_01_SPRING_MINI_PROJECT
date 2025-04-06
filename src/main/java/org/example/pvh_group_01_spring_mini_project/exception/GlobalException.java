@@ -1,47 +1,46 @@
 package org.example.pvh_group_01_spring_mini_project.exception;
 
-import org.example.pvh_group_01_spring_mini_project.models.dto.response.ErrorRespone;
+import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
-import org.springframework.http.ResponseEntity;
-import io.minio.errors.ErrorResponseException;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestControllerAdvice
 public class GlobalException {
     @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<?> handlerNotFound(NotFoundException ex){
-        return new ResponseEntity<>(new ErrorRespone(ex.getMessage(), HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler(BlankInputException.class)
-    public ResponseEntity<?> handlerBlankInput(BlankInputException ex){
-        return new ResponseEntity<>(new ErrorRespone(ex.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
-    }
-
-    // handle file exception
-    @ExceptionHandler(NotAllowedFile.class)
-    public ProblemDetail handleFileNotAllow(NotAllowedFile e){
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.getMessage());
-        problemDetail.setTitle("Bad Request");
-        problemDetail.setDetail("Profile image must be a valid image URL ending with .png, .svg, .jpg, .jpeg, or .gif");
-        problemDetail.setProperty("timestamp", LocalDateTime.now());
+    public ProblemDetail handleNotFoundException(NotFoundException e) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, "Something went wrong!!!");
+        problemDetail.setTitle("Not Found");
+        problemDetail.setProperty("Timestamp", LocalDateTime.now());
         return problemDetail;
     }
 
-    @ExceptionHandler(ErrorResponseException.class)
-    public ProblemDetail handleErrorRespone(ErrorResponseException e){
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
-        problemDetail.setTitle("Not found");
-        problemDetail.setDetail("This profile image is not found!");
-        problemDetail.setProperty("timestamp", LocalDateTime.now());
+    @ExceptionHandler(Exception.class)
+    public ProblemDetail handleException(Exception e) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, "Something went wrong!!!");
+        problemDetail.setTitle("Something went wrong!!!");
+        problemDetail.setProperty("Timestamp", LocalDateTime.now());
         return problemDetail;
-
     }
-    // end handle file exception
 
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ProblemDetail handleValidationExceptionErrors(MethodArgumentNotValidException e) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, "Something went wrong!!!");
+        problemDetail.setTitle("Invalid Input");
 
+        List<String> errors = new ArrayList<>();
+        for (FieldError fieldError : e.getBindingResult().getFieldErrors()) {
+            errors.add(fieldError.getField() + ": " + fieldError.getDefaultMessage());
+        }
+        problemDetail.setProperty("Errors", errors);
+        problemDetail.setProperty("Timestamp", LocalDateTime.now());
+        return problemDetail;
+    }
 }
