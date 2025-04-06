@@ -40,6 +40,23 @@ public interface HabitRepository {
             SELECT app_user_id FROM habits WHERE habit_id = #{habitId}
         )
     """)
-    Habit updateUserXpByHabitId(UUID habitId);
+
+    @ResultMap("habitMapper")
+    Habit updateUserXpByHabitId(@Param("habitId") UUID habitId);
+
+    @Select("""
+    UPDATE app_users
+    SET level = FLOOR(xp / 100)
+    WHERE app_user_id = (
+        SELECT app_user_id FROM habits WHERE habit_id = #{habitId}
+    )
+    AND MOD(xp, 100) = 0
+    """)
+    @ResultMap("habitMapper")
+    Habit updateUserLevelByHabitId(@Param("habitId") UUID habitId);
+
+
+
+
 
 }

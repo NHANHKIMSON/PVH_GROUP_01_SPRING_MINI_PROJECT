@@ -1,5 +1,6 @@
 package org.example.pvh_group_01_spring_mini_project.service.impl;
 
+import org.example.pvh_group_01_spring_mini_project.exception.NotFoundException;
 import org.example.pvh_group_01_spring_mini_project.models.dto.request.HabitLogRequest;
 import org.example.pvh_group_01_spring_mini_project.models.entity.HabitLog;
 import org.example.pvh_group_01_spring_mini_project.repository.HabitLogRepository;
@@ -23,14 +24,21 @@ public class HabitLogServiceImpl implements HabitLogService {
     @Override
     public HabitLog addHabitLog(HabitLogRequest habitLogRequest) {
         HabitLog habitLog = habitLogRepository.addHabitLog(habitLogRequest);
-        habitRepository.updateUserXpByHabitId(habitLog.getHabit().getHabitId());
+        UUID habitId = habitLog.getHabit().getHabitId();
+        habitRepository.updateUserXpByHabitId(habitId);
+        habitRepository.updateUserLevelByHabitId(habitId);
         return habitLog;
     }
 
-
     @Override
     public List<HabitLog> getAllHabitLog(Integer offset, Integer size, UUID habitId) {
-        return habitLogRepository.getAllHabitLog(offset, size, habitId);
+
+        List<HabitLog> habitLogs = habitLogRepository.getAllHabitLog(offset, size, habitId);
+        if (habitLogs == null || habitLogs.isEmpty()) {
+            throw new NotFoundException("No habit log found");
+        }
+
+        return habitLogs ;
     }
 
 }

@@ -20,7 +20,6 @@ public class HabitLog extends UUIDTypeHandler {
 
     private UUID habitLogId;
     private LocalDate logDate;
-
     @NotBlank(message = "Status can be empty")
     private Frequency status;
     private Integer xpEarned;

@@ -25,4 +25,5 @@ public interface ProfileRepository {
     })
     Profile getHabitProfile(@Param("appUserId") UUID appUserId);
 
+
 }

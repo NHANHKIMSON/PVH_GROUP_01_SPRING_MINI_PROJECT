@@ -22,4 +22,5 @@ public class Habit extends UUIDTypeHandler {
     private Boolean isActive;
     private Profile appUserResponse;
     private LocalDateTime createAt;
+
 }
