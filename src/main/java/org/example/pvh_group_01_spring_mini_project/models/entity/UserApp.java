@@ -45,4 +45,5 @@ public class UserApp extends UUIDTypeHandler  implements UserDetails  {
     public String getUsername() {
         return email;
     }
+
 }

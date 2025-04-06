@@ -15,6 +15,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
         type = SecuritySchemeType.HTTP,
         scheme = "bearer",
         in = SecuritySchemeIn.HEADER
+
 )
 @SpringBootApplication
 public class PvhGroup01SpringMiniProjectApplication {

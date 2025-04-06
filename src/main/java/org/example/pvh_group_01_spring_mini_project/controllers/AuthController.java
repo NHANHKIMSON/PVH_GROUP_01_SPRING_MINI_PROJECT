@@ -4,8 +4,11 @@ import org.apache.ibatis.javassist.NotFoundException;
 import org.example.pvh_group_01_spring_mini_project.jwt.JwtService;
 import org.example.pvh_group_01_spring_mini_project.models.dto.request.AuthRequest.AuthLoginRequest;
 import org.example.pvh_group_01_spring_mini_project.models.dto.request.AuthRequest.AuthRegisterRequest;
+import org.example.pvh_group_01_spring_mini_project.models.dto.response.ApiRespones;
 import org.example.pvh_group_01_spring_mini_project.models.dto.response.AuthResponse;
+import org.example.pvh_group_01_spring_mini_project.models.entity.UserApp;
 import org.example.pvh_group_01_spring_mini_project.service.UserAppService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -17,6 +20,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("api/v1/auths")
@@ -42,11 +47,26 @@ public class AuthController {
         final UserDetails userDetails = userAppService.loadUserByUsername(request.getEmail());
         final String token = jwtService.generateToken(userDetails);
         AuthResponse authResponse = new AuthResponse(token);
-        return ResponseEntity.ok(authResponse);
+        ApiRespones<AuthResponse> respones=ApiRespones.<AuthResponse>builder()
+                .success(true)
+                .message("Suceess for login")
+                .status(HttpStatus.OK)
+                .payload(authResponse)
+                .timestamps(LocalDateTime.now())
+                .build();
+        return ResponseEntity.ok(respones);
     }
+
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody AuthRegisterRequest request){
-        return ResponseEntity.ok(userAppService.registerProfile(request));
+        ApiRespones<UserApp> respones=ApiRespones.<UserApp>builder()
+                .success(true)
+                .message(("User registered successfully"))
+                .status(HttpStatus.ACCEPTED)
+                .payload(userAppService.registerProfile(request))
+                .timestamps(LocalDateTime.now())
+                .build();
+        return ResponseEntity.ok(respones);
     }
 }
