@@ -14,12 +14,12 @@ import java.time.LocalDateTime;
 public class GlobalException {
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<?> handlerNotFound(NotFoundException ex){
-        return new ResponseEntity<>(new ErrorRespone(ex.getMessage(), HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(new ErrorRespone(ex.getMessage(), HttpStatus.NOT_FOUND, LocalDateTime.now()), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(BlankInputException.class)
     public ResponseEntity<?> handlerBlankInput(BlankInputException ex){
-        return new ResponseEntity<>(new ErrorRespone(ex.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ErrorRespone(ex.getMessage(), HttpStatus.BAD_REQUEST, LocalDateTime.now()), HttpStatus.BAD_REQUEST);
     }
 
     // handle file exception

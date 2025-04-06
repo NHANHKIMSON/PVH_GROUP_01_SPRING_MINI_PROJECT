@@ -2,6 +2,7 @@ package org.example.pvh_group_01_spring_mini_project.config;
 import lombok.AllArgsConstructor;
 import org.example.pvh_group_01_spring_mini_project.jwt.JwtAuthEntryPoint;
 import org.example.pvh_group_01_spring_mini_project.jwt.JwtAuthFilter;
+import org.example.pvh_group_01_spring_mini_project.service.UserAppService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

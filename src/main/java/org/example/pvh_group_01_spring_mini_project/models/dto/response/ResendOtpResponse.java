@@ -9,11 +9,13 @@ import org.springframework.http.HttpStatus;
 import java.time.LocalDateTime;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-public class ErrorRespone<T> {
+public class ResendOtpResponse<T> {
+    private Boolean success;
     private String message;
     private HttpStatus status;
-    private LocalDateTime timespam;
+    private LocalDateTime timestamps;
 }
+

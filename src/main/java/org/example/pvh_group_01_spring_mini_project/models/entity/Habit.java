@@ -21,5 +21,6 @@ public class Habit extends UUIDTypeHandler {
     private Frequency frequency;
     private Boolean isActive;
     private Profile appUserResponse;
+//    private UUID appUserId; // updated
     private LocalDateTime createAt;
 }

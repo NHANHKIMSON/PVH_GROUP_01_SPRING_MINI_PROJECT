@@ -21,7 +21,7 @@ CREATE TABLE app_users(
                           xp INTEGER,
                           profile_image VARCHAR(50),
                           is_verified BOOLEAN,
-                          created_at timestamp
+                          created_at timestamp default current_timestamp
 );
 
 CREATE TABLE habits(
@@ -31,7 +31,7 @@ CREATE TABLE habits(
                        frequency VARCHAR(50),
                        is_active BOOLEAN,
                        app_user_id uuid,
-                       created_at timestamp,
+                       created_at timestamp default current_timestamp,
                        FOREIGN KEY(app_user_id) REFERENCES app_users(app_user_id)
                            ON DELETE CASCADE
                            ON UPDATE CASCADE
