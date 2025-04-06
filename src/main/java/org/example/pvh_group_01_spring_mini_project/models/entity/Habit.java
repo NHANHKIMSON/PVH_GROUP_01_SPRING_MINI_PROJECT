@@ -12,7 +12,6 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Habit extends UUIDTypeHandler {
-    //    private UUID habitId = UUID.randomUUID();
     private UUID habitId;
     private String title;
     private String description;

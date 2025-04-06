@@ -1,11 +1,9 @@
 package org.example.pvh_group_01_spring_mini_project.repository;
 
 import org.apache.ibatis.annotations.*;
-import org.apache.ibatis.type.JdbcType;
 import org.example.pvh_group_01_spring_mini_project.models.dto.request.HabitRequest;
 import org.example.pvh_group_01_spring_mini_project.models.entity.Habit;
 import org.example.pvh_group_01_spring_mini_project.util.UUIDTypeHandler;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.UUID;
 
