@@ -1,5 +1,6 @@
 package org.example.pvh_group_01_spring_mini_project.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.Builder;
 import lombok.SneakyThrows;
@@ -9,7 +10,6 @@ import org.example.pvh_group_01_spring_mini_project.service.FileService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,6 +27,8 @@ public class FileController {
         this.fileService = fileService;
     }
 
+
+    @Operation(summary = "Upload a file")
     @PostMapping(value = "/upload-file",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ApiRespones<FileMetaData>> uploadFile(@RequestPart(value = "file", required = true) MultipartFile file){
         ApiRespones<FileMetaData> respones = ApiRespones.<FileMetaData>builder()
@@ -39,7 +41,7 @@ public class FileController {
         return ResponseEntity.ok(respones);
     }
 
-
+    @Operation(summary = "Preview a file")
     @SneakyThrows
     @GetMapping("/preview-file/{file-name}")
     public ResponseEntity<?> getFileByName(@PathVariable("file-name") String fileName){

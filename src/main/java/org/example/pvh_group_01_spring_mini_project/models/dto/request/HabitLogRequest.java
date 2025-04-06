@@ -14,6 +14,6 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class HabitLogRequest {
-    private Status status; // update
+    private Frequency status;
     private UUID habitId;
 }

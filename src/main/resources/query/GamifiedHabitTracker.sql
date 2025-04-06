@@ -1,9 +1,15 @@
 CREATE DATABASE gamified_Habit_Tracker;
 
 DROP DATABASE gamified_Habit_Tracker;
-
-CREATE DATABASE gamified_Habit_Tracker;
-
+     CREATE EXTENSION "uuid-ossp";
+@Select("""
+        UPDATE habits
+        SET title = #{request.title}, description = #{request.description}, frequency = #{request.frequency}
+        WHERE habit_id = #{id}
+        returning *
+    """)
+    @ResultMap("habitMapper")
+    Habit updateHabit(UUID id, @Param("request") HabitRequest habitRequest);
 CREATE TABLE achievement(
                             achievement_id uuid PRIMARY KEY,
                             title VARCHAR(50),
@@ -13,19 +19,19 @@ CREATE TABLE achievement(
 );
 
 CREATE TABLE app_users(
-                          app_user_id uuid PRIMARY KEY,
+                          app_user_id uuid default uuid_generate_v4() PRIMARY KEY,
                           username VARCHAR(50),
                           email VARCHAR(50),
                           password VARCHAR(50),
                           level INTEGER,
-                          xp INTEGER,
+                          xp  INTEGER,
                           profile_image VARCHAR(50),
                           is_verified BOOLEAN,
                           created_at timestamp default current_timestamp
 );
 
 CREATE TABLE habits(
-                       habit_id uuid PRIMARY KEY,
+                       habit_id uuid default uuid_generate_v4() PRIMARY KEY,
                        title VARCHAR(50),
                        description VARCHAR(50),
                        frequency VARCHAR(50),
@@ -36,6 +42,7 @@ CREATE TABLE habits(
                            ON DELETE CASCADE
                            ON UPDATE CASCADE
 );
+
 
 CREATE TABLE habit_logs(
                            habit_log_id uuid PRIMARY KEY,
@@ -102,12 +109,8 @@ INSERT INTO app_user_achievements (app_user_achievement_id, app_user_id, achieve
                                                                                              ('50000000-0000-4000-a000-000000000004', '20000000-0000-4000-a000-000000000003', '10000000-0000-4000-a000-000000000001'),
                                                                                              ('50000000-0000-4000-a000-000000000005', '20000000-0000-4000-a000-000000000004', '10000000-0000-4000-a000-000000000004');
 
--- If want to make uuid random
--- INSERT INTO achievement VALUES (gen_random_uuid(),'','','','');
-
--- Sample queries to check data
 SELECT * FROM habits;
 SELECT * FROM achievement;
 SELECT * FROM app_user_achievements;
 SELECT * FROM app_users;
-SELECT * FROM habit_logs;
+SELECT * FROM habit_logs
