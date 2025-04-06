@@ -49,7 +49,7 @@ public interface UserAppRepository {
     @Select(
             """
         SELECT * FROM app_users where email=#{email}
-"""
+     """
     )
     @ResultMap("UserAppMapper")
     UserApp getProfileByEmail(String email);
