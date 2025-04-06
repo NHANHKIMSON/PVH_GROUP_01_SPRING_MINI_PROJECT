@@ -9,5 +9,4 @@ import java.util.UUID;
 public interface HabitLogService {
     HabitLog addHabitLog(HabitLogRequest habitLogRequest);
     List<HabitLog> getAllHabitLog(Integer offset, Integer size, UUID habitId);
-
 }

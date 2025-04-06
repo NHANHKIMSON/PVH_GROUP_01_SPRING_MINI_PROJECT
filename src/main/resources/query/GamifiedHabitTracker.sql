@@ -1,7 +1,15 @@
 CREATE DATABASE gamified_Habit_Tracker;
 
--- DROP DATABASE gamified_Habit_Tracker;
-
+DROP DATABASE gamified_Habit_Tracker;
+     CREATE EXTENSION "uuid-ossp";
+@Select("""
+        UPDATE habits
+        SET title = #{request.title}, description = #{request.description}, frequency = #{request.frequency}
+        WHERE habit_id = #{id}
+        returning *
+    """)
+    @ResultMap("habitMapper")
+    Habit updateHabit(UUID id, @Param("request") HabitRequest habitRequest);
 CREATE TABLE achievement(
                             achievement_id uuid PRIMARY KEY,
                             title VARCHAR(50),
@@ -11,7 +19,7 @@ CREATE TABLE achievement(
 );
 
 CREATE TABLE app_users(
-                          app_user_id uuid PRIMARY KEY,
+                          app_user_id uuid default uuid_generate_v4() PRIMARY KEY,
                           username VARCHAR(50),
                           email VARCHAR(50),
                           password VARCHAR(50),
@@ -23,7 +31,7 @@ CREATE TABLE app_users(
 );
 
 CREATE TABLE habits(
-                       habit_id uuid PRIMARY KEY,
+                       habit_id uuid default uuid_generate_v4() PRIMARY KEY,
                        title VARCHAR(50),
                        description VARCHAR(50),
                        frequency VARCHAR(50),
@@ -34,6 +42,7 @@ CREATE TABLE habits(
                            ON DELETE CASCADE
                            ON UPDATE CASCADE
 );
+
 
 CREATE TABLE habit_logs(
                            habit_log_id uuid PRIMARY KEY,
@@ -104,5 +113,4 @@ SELECT * FROM habits;
 SELECT * FROM achievement;
 SELECT * FROM app_user_achievements;
 SELECT * FROM app_users;
-SELECT * FROM habit_logs;
-select * from habits;
+SELECT * FROM habit_logs

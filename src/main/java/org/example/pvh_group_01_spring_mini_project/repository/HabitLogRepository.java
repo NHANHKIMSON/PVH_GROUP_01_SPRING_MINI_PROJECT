@@ -34,12 +34,13 @@ public interface HabitLogRepository {
     @Select("""
     INSERT INTO habit_logs (status, habit_id, log_date, created_at, xp_earned)
     VALUES (
-        #{request.status},  
+        #{request.status}, 
         #{request.habitId}, 
         CURRENT_TIMESTAMP,  
         CURRENT_TIMESTAMP, 
         CASE
             WHEN #{request.status} = 'COMPLETED' THEN 10  ELSE 0 
+            
         END
     )
     RETURNING habit_log_id, log_date, status, xp_earned, habit_id, created_at
