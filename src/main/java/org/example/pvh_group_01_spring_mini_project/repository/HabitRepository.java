@@ -36,4 +36,6 @@ public interface HabitRepository {
     """)
     @ResultMap("habitMapper")
     Habit getHabitById(UUID habitId);
+
+    Habit getCurrentUserHabit();
 }

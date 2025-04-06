@@ -45,14 +45,25 @@ public class HabitController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ApiRespones<Habit>> getHabitById(@PathVariable("id") UUID habitId)  {
-        ApiRespones<Habit> apiRespones = ApiRespones.<Habit>builder()
+        ApiRespones<Habit> response = ApiRespones.<Habit>builder()
                 .success(true)
                 .message("Habit fetched successfully!!!")
                 .status(HttpStatus.OK)
                 .payload(habitService.getHabitById(habitId))
                 .timestamps(LocalDateTime.now())
                 .build();
-        return new ResponseEntity<>(apiRespones, HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
 
+    }
+
+    @GetMapping("/currentUser")
+    public ResponseEntity<ApiRespones<Habit>> getCurrentUserHabit() {
+        ApiRespones<Habit> response = ApiRespones.<Habit>builder()
+                .success(true)
+                .message("Get Current User Habit!!!")
+                .status(HttpStatus.OK)
+                .payload(null)
+                .build();
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

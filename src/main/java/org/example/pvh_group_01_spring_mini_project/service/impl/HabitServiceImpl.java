@@ -41,4 +41,9 @@ public class HabitServiceImpl implements HabitService {
     public Habit getHabitById(UUID habitId) {
         return habitRepository.getHabitById(habitId);
     }
+
+    @Override
+    public Habit getCurrentUserHabit() {
+        return null;
+    }
 }

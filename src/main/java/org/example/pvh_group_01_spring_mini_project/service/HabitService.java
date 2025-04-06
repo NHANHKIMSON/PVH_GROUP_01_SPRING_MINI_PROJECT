@@ -9,6 +9,7 @@ public interface HabitService {
     Habit deleteHabit(UUID id);
     Habit updateHabit(UUID id, HabitRequest habitRequest);
     Habit getHabitById(UUID habitId);
+    Habit getCurrentUserHabit();
 }
 
 
