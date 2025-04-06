@@ -6,11 +6,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 
+import java.time.LocalDateTime;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ErrorRespone {
+public class ErrorRespone<T> {
     private String message;
     private HttpStatus status;
+//    private T payload;
+    private LocalDateTime timespam;
 }

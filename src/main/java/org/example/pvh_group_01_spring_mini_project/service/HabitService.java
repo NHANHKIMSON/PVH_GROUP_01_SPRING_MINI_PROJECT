@@ -1,5 +1,6 @@
 package org.example.pvh_group_01_spring_mini_project.service;
 
+import org.apache.ibatis.annotations.Param;
 import org.example.pvh_group_01_spring_mini_project.models.dto.request.HabitRequest;
 import org.example.pvh_group_01_spring_mini_project.models.entity.Habit;
 import org.example.pvh_group_01_spring_mini_project.util.UUIDTypeHandler;
@@ -12,4 +13,5 @@ public interface HabitService {
     Habit getHabitById(UUID habitId);
     Habit deleteHabit(UUID id);
     Habit updateHabit(UUID id, HabitRequest habitRequest);
+    Habit addHabit(HabitRequest habitRequest);
 }

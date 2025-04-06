@@ -44,4 +44,12 @@ public interface HabitRepository {
     """)
     @ResultMap("habitMapper")
     Habit updateHabit(UUID id, @Param("request") HabitRequest habitRequest);
+
+    @Select("""
+        INSERT INTO habits(habit_id, title, description, frequency)
+        VALUES (gen_random_uuid(), #{request.title}, #{request.description}, upper(#{request.frequency}))
+        RETURNING *;
+    """)
+    @ResultMap("habitMapper")
+    Habit addHabit(@Param("request") HabitRequest habitRequest);
 }

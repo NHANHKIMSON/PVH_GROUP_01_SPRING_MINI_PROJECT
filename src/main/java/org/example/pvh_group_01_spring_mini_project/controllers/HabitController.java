@@ -72,4 +72,16 @@ public class HabitController {
                 .build();
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
+
+    @PostMapping
+    public ResponseEntity<ApiRespones<Habit>> addHabit(@RequestBody HabitRequest habitRequest){
+        ApiRespones<Habit> response = ApiRespones.<Habit>builder()
+                .success(true)
+                .message("Habit successfully Updated")
+                .status(HttpStatus.OK)
+                .payload(habitService.addHabit(habitRequest))
+                .timestamps(LocalDateTime.now())
+                .build();
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
 }

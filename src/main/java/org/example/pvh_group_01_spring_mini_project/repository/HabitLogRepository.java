@@ -5,7 +5,6 @@ import org.example.pvh_group_01_spring_mini_project.models.dto.request.HabitLogR
 import org.example.pvh_group_01_spring_mini_project.models.entity.HabitLog;
 
 import java.util.List;
-import java.util.UUID;
 
 @Mapper
 public interface HabitLogRepository {
@@ -22,22 +21,4 @@ public interface HabitLogRepository {
             @Result(property = "createdAt", column = "created_at")
     })
     List<HabitLog> getAllHabitLog();
-
-    @Select("""
-    INSERT INTO habit_logs (habit_log_id,status, habit_id)
-    VALUES (gen_random_uuid(),#{request.status}, #{request.habitId})
-    RETURNING *;
-    """)
-    @ResultMap("habitLogMapper")
-    @Options(useGeneratedKeys = true, keyProperty = "habitLogId")
-    HabitLog addHabitLog(@Param("request") HabitLogRequest habitLogRequest);
-
-    @Select("""
-   SELECT COUNT(*)
-   FROM habit_logs
-   WHERE habit_id = #{habitId}
-   AND status = 'COMPLETED';
-   
-    """)
-    Integer countCompletedLogs(UUID habitId);
 }

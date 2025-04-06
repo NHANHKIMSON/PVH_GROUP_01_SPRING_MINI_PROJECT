@@ -7,5 +7,4 @@ import java.util.List;
 
 public interface HabitLogService {
     List<HabitLog> getAllHabitLog();
-    HabitLog addHabitLog(HabitLogRequest habitLogRequest);
 }

@@ -32,17 +32,4 @@ public class HabitLogController {
                 .build();
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
-
-    @PostMapping
-    public ResponseEntity<ApiRespones<HabitLog>> addAttendee(@RequestBody HabitLogRequest habitLogRequest ) {
-        HabitLog addHabitLog = habitLogService.addHabitLog(habitLogRequest);
-        ApiRespones<HabitLog> response = ApiRespones.<HabitLog>builder()
-                .message("Habit Log added successfully")
-                .status(HttpStatus.CREATED)
-                .payload(addHabitLog)
-                .success(true)
-                .timestamps(LocalDateTime.now())
-                .build();
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
-    }
 }
