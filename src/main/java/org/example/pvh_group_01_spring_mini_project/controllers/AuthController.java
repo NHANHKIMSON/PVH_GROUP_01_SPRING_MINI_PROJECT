@@ -1,4 +1,6 @@
 package org.example.pvh_group_01_spring_mini_project.controllers;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.javassist.NotFoundException;
 import org.example.pvh_group_01_spring_mini_project.jwt.JwtService;
@@ -44,19 +46,26 @@ public class AuthController {
             throw new Exception("INVALID_CREDENTIALS", e);
         }
     }
-
+     @Operation(summary = "Login user")
     @PostMapping("/login")
     public ResponseEntity<?> authenticate(@RequestBody AuthLoginRequest request) throws Exception {
         authenticate(request.getEmail(), request.getPassword());
         final UserDetails userDetails = userAppService.loadUserByUsername(request.getEmail());
 
-        System.out.println("this is user " + userDetails);
+//        System.out.println("this is user " + userDetails);
 
         final String token = jwtService.generateToken(userDetails);
         AuthResponse authResponse = new AuthResponse(token);
-        return ResponseEntity.ok(authResponse);
+        ApiRespones<AuthResponse> respones=ApiRespones.<AuthResponse>builder()
+                .success(true)
+                .message("Login Successful Authentication generated")
+                .status(HttpStatus.OK)
+                .payload(authResponse)
+                .timestamps(LocalDateTime.now())
+                .build();
+        return ResponseEntity.ok(respones);
     }
-
+     @Operation(summary = "Register new User")
     @PostMapping("/register")
     public ResponseEntity<ApiRespones<UserApp>> register(@RequestBody AuthRegisterRequest authRegisterRequest) {
         ApiRespones<UserApp> respones = ApiRespones.<UserApp>builder()
@@ -68,7 +77,7 @@ public class AuthController {
                 .build();
         return new ResponseEntity<>(respones, HttpStatus.CREATED);
     }
-
+    @Operation(summary = "Resend verification OTP")
     @PostMapping("/resend")
     public ResponseEntity<?> resendOtp( @RequestParam String email){
         UserApp foundEmail = userAppService.checkEmail(email);
@@ -91,7 +100,7 @@ public class AuthController {
         }
 
     }
-
+    @Operation(summary = "Verify email with OTP")
     @PostMapping("/verify")
     public ResponseEntity<?> verifyUser( @RequestParam String email, @RequestParam String otp){
         try {

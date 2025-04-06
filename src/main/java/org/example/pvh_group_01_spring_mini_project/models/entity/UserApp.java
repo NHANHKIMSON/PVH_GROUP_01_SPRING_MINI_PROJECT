@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import org.example.pvh_group_01_spring_mini_project.util.UUIDTypeHandler;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -66,4 +67,8 @@ public class UserApp extends UUIDTypeHandler  implements UserDetails  {
     public boolean isEnabled() {
         return isVerified;
     }
+
+
+
+
 }

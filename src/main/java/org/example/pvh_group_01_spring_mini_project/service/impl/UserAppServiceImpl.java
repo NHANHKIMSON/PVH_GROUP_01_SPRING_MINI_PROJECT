@@ -2,6 +2,7 @@ package org.example.pvh_group_01_spring_mini_project.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.example.pvh_group_01_spring_mini_project.models.dto.request.AuthRequest.AuthRegisterRequest;
+
 import org.example.pvh_group_01_spring_mini_project.models.entity.UserApp;
 import org.example.pvh_group_01_spring_mini_project.repository.UserAppRepository;
 import org.example.pvh_group_01_spring_mini_project.service.UserAppService;
@@ -44,6 +45,7 @@ public class UserAppServiceImpl implements UserAppService {
             return userAppRepository.updateOtp(users);
         } else {
             sendVerificationEmail(users.getEmail(), otp);
+            UserApp userApp = userAppRepository.save(users);
             return userAppRepository.save(users);
         }
 
@@ -73,9 +75,8 @@ public class UserAppServiceImpl implements UserAppService {
             String otp = generateOTP();
             userApp.setOtp(otp);
             userApp.setCreatedAt(LocalDateTime.now());
-            userAppRepository.updateOtp(userApp);
             sendVerificationEmail(email, otp);
-            return userApp;
+            return userAppRepository.updateOtp(userApp);
         } else {
             throw new RuntimeException("Email Not Found");
         }
