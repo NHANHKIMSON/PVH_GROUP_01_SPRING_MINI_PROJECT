@@ -60,12 +60,14 @@ public interface HabitRepository {
     List<Habit> getAllHabits(Integer page, Integer size);
 
     @Select("""
-        INSERT INTO habits(title, description, frequency)
-        VALUES (#{request.title}, #{request.description}, #{request.frequency})
+         INSERT INTO habits(habit_id, title, description, frequency,is_active, app_user_id , created_at)
+        VALUES (gen_random_uuid(),#{request.title}, #{request.description}, #{request.frequency},true, '2163d25a-1792-4c65-b626-ab0085165b98', now())
         RETURNING *
+ 
     """)
     @ResultMap("habitMapper")
     Habit createHabit(@Param("request") HabitRequest habitRequest);
+
 
     @Select("""
         UPDATE app_users
@@ -94,4 +96,8 @@ public interface HabitRepository {
     """)
     @ResultMap("habitMapper")
     Habit updateUserLevelByHabitId(@Param("habitId") UUID habitId);
+
+
+
+
 }

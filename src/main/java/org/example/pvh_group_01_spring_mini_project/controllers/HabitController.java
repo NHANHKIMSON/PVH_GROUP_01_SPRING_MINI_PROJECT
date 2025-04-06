@@ -81,4 +81,17 @@ public class HabitController {
 
     }
 
+    @PostMapping
+    public ResponseEntity<ApiRespones<Habit>> createHabit(@Valid @RequestBody HabitRequest habitRequest) {
+        ApiRespones<Habit> apiRespones = ApiRespones.<Habit>builder()
+                .success(true)
+                .message("Habit created successfully!!!")
+                .status(HttpStatus.CREATED)
+                .payload(habitService.createHabit(habitRequest))
+                .timestamps(LocalDateTime.now())
+                .build();
+        return new ResponseEntity<>(apiRespones, HttpStatus.OK);
+    }
+
+
 }

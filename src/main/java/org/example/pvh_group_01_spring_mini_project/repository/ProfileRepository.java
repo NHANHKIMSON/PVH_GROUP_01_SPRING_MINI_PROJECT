@@ -21,4 +21,6 @@ public interface ProfileRepository {
             @Result(property = "createdAt", column = "created_at")
     })
     Profile getProfileById(UUID id);
+
+
 }

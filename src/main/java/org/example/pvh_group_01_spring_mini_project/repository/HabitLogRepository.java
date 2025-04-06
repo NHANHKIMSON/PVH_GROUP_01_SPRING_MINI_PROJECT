@@ -32,8 +32,9 @@ public interface HabitLogRepository {
 
 
     @Select("""
-    INSERT INTO habit_logs (status, habit_id, log_date, created_at, xp_earned)
+    INSERT INTO habit_logs (habit_log_id,status, habit_id, log_date, created_at, xp_earned)
     VALUES (
+         gen_random_uuid(),
         #{request.status},  
         #{request.habitId}, 
         CURRENT_TIMESTAMP,  
