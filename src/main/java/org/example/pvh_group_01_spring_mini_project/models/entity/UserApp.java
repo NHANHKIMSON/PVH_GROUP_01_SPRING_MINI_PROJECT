@@ -28,6 +28,7 @@ public class UserApp extends UUIDTypeHandler  implements UserDetails  {
     private Integer xp;
     private String profileImageUrl;
     private Boolean isVerified;
+    private String otp;
     private LocalDateTime createdAt;
 
 
