@@ -18,28 +18,28 @@ public class HabitServiceImpl implements HabitService {
         this.habitRepository = habitRepository;
     }
 
-    @Override
-    public List<Habit> getAllHabits(Integer page, Integer size) {
-        return habitRepository.getAllHabits(page, size);
-    }
+//    @Override
+//    public List<Habit> getAllHabits(Integer page, Integer size) {
+//        return habitRepository.getAllHabits(page, size);
+//    }
 
     @Override
     public Habit getHabitById(UUID habitId) {
         return habitRepository.getHabitById(habitId);
     }
 
-    @Override
-    public Habit deleteHabit(UUID id) {
-        return habitRepository.deleteHabit(id);
-    }
+//    @Override
+//    public Habit deleteHabit(UUID id) {
+//        return habitRepository.deleteHabit(id);
+//    }
 
-    @Override
-    public Habit updateHabit(UUID id, HabitRequest habitRequest) {
-        return habitRepository.updateHabit(id, habitRequest);
-    }
-
-    @Override
-    public Habit addHabit(HabitRequest habitRequest) {
-        return habitRepository.addHabit(habitRequest);
-    }
+//    @Override
+//    public Habit updateHabit(UUID id, HabitRequest habitRequest) {
+//        return habitRepository.updateHabit(id, habitRequest);
+//    }
+//
+//    @Override
+//    public Habit addHabit(HabitRequest habitRequest) {
+//        return habitRepository.addHabit(habitRequest);
+//    }
 }

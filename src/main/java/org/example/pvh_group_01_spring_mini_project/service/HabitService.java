@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.UUID;
 
 public interface HabitService {
-    List<Habit> getAllHabits(Integer page, Integer size);
+//    List<Habit> getAllHabits(Integer page, Integer size);
     Habit getHabitById(UUID habitId);
-    Habit deleteHabit(UUID id);
-    Habit updateHabit(UUID id, HabitRequest habitRequest);
-    Habit addHabit(HabitRequest habitRequest);
+//    Habit deleteHabit(UUID id);
+//    Habit updateHabit(UUID id, HabitRequest habitRequest);
+//    Habit addHabit(HabitRequest habitRequest);
 }
