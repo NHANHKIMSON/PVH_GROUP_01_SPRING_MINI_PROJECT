@@ -34,7 +34,7 @@ public class HabitServiceImpl implements HabitService {
         if (habitRequest.getFrequency() != null){
             habit.setFrequency(habitRequest.getFrequency().toString());
         }
-        return habit;
+        return habitRepository.updateHabit(id, habitRequest);
     }
 
     @Override
