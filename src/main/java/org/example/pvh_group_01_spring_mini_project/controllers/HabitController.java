@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/habits")
@@ -56,14 +57,28 @@ public class HabitController {
 
     }
 
-    @GetMapping("/currentUser")
-    public ResponseEntity<ApiRespones<Habit>> getCurrentUserHabit() {
-        ApiRespones<Habit> response = ApiRespones.<Habit>builder()
+//    @GetMapping("/currentUser")
+//    public ResponseEntity<ApiRespones<Habit>> getCurrentUserHabit() {
+//        ApiRespones<Habit> response = ApiRespones.<Habit>builder()
+//                .success(true)
+//                .message("Get Current User Habit!!!")
+//                .status(HttpStatus.OK)
+//                .payload(null)
+//                .build();
+//        return new ResponseEntity<>(response, HttpStatus.OK);
+//    }
+
+    @GetMapping
+    public ResponseEntity<ApiRespones<List<Habit>>> getAllHabits(@RequestParam(defaultValue = "1")  Integer page, @RequestParam(defaultValue = "10") Integer size){
+        ApiRespones<List<Habit>> apiRespones = ApiRespones.<List<Habit>>builder()
                 .success(true)
-                .message("Get Current User Habit!!!")
+                .message("Fetched all habits successfully")
                 .status(HttpStatus.OK)
-                .payload(null)
+                .payload(habitService.getAllHabits(page, size))
+                .timestamps(LocalDateTime.now())
                 .build();
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(apiRespones, HttpStatus.OK);
+
     }
+
 }

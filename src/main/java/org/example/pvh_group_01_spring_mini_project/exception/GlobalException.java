@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalException {
+
     @ExceptionHandler(NotFoundException.class)
     public ProblemDetail handleNotFoundException(NotFoundException e) {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, "Something went wrong!!!");
@@ -30,17 +32,52 @@ public class GlobalException {
         return problemDetail;
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ProblemDetail handleValidationExceptionErrors(MethodArgumentNotValidException e) {
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, "Something went wrong!!!");
-        problemDetail.setTitle("Invalid Input");
 
-        List<String> errors = new ArrayList<>();
-        for (FieldError fieldError : e.getBindingResult().getFieldErrors()) {
-            errors.add(fieldError.getField() + ": " + fieldError.getDefaultMessage());
-        }
-        problemDetail.setProperty("Errors", errors);
-        problemDetail.setProperty("Timestamp", LocalDateTime.now());
+//   add new :  Handle when page=0
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ProblemDetail handleIllegalArgumentException(IllegalArgumentException e) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, "Validation error");
+        problemDetail.setTitle("Bad Request");
+
+        problemDetail.setProperty("errors", Map.of("page", e.getMessage()));
+        problemDetail.setProperty("timestamp", LocalDateTime.now());
+
         return problemDetail;
     }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ProblemDetail handleValidationErrors(MethodArgumentNotValidException ex) {
+        // Create ProblemDetail response
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, "Validation error");
+        problemDetail.setTitle("Bad Request");
+
+        // Extract validation errors (without using Stream)
+        List<String> errors = new ArrayList<>();
+        for (FieldError error : ex.getBindingResult().getFieldErrors()) {
+            errors.add(error.getField() + ": " + error.getDefaultMessage());
+        }
+
+        // Attach validation errors as additional details
+        problemDetail.setProperty("errors", errors);
+        problemDetail.setProperty("timestamp", LocalDateTime.now());
+
+        return problemDetail;
+    }
+
+
+
+
+//    @ExceptionHandler(MethodArgumentNotValidException.class)
+//    public ProblemDetail handleValidationExceptionErrors(MethodArgumentNotValidException e) {
+//        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, "Something went wrong!!!");
+//        problemDetail.setTitle("Invalid Input");
+//
+//        List<String> errors = new ArrayList<>();
+//        for (FieldError fieldError : e.getBindingResult().getFieldErrors()) {
+//            errors.add(fieldError.getField() + ": " + fieldError.getDefaultMessage());
+//        }
+//        problemDetail.setProperty("Errors", errors);
+//        problemDetail.setProperty("Timestamp", LocalDateTime.now());
+//        return problemDetail;
+//    }
 }

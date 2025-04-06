@@ -1,12 +1,15 @@
 package org.example.pvh_group_01_spring_mini_project.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.User;
 import org.example.pvh_group_01_spring_mini_project.models.dto.request.HabitRequest;
 import org.example.pvh_group_01_spring_mini_project.models.entity.Habit;
+import org.example.pvh_group_01_spring_mini_project.models.entity.Profile;
 import org.example.pvh_group_01_spring_mini_project.repository.HabitRepository;
 import org.example.pvh_group_01_spring_mini_project.service.HabitService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -42,8 +45,29 @@ public class HabitServiceImpl implements HabitService {
         return habitRepository.getHabitById(habitId);
     }
 
+//    @Override
+//    public Habit getCurrentUserHabit() {
+//
+//        return null;
+//    }
+
     @Override
-    public Habit getCurrentUserHabit() {
-        return null;
+    public List<Habit> getAllHabits(Integer page, Integer size) {
+        if (page == null || page <= 0) {
+            throw new IllegalArgumentException("page must be greater than 0");
+        }
+        return habitRepository.getAllHabits(page, size);
     }
+
+    @Override
+    public Habit createHabit(HabitRequest habitRequest) {
+        return habitRepository.createHabit(habitRequest);
+    }
+
+//    public Profile getCurrentUser(){
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        String currentPrincipalName = authentication.getName();
+//    }
+
+
 }
