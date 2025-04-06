@@ -36,7 +36,7 @@ public interface HabitRepository {
     Habit getHabitById(UUID habitId);
 
     @Select("""
-        INSERT INTO habits(title, description, frequency,is_active, app_user_id , created_at)
+         INSERT INTO habits(title, description, frequency,is_active, app_user_id , created_at)
         VALUES (#{request.title}, #{request.description}, #{request.frequency},true, '2163d25a-1792-4c65-b626-ab0085165b98', now())
         RETURNING *
  

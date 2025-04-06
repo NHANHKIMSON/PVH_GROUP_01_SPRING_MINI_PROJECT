@@ -52,7 +52,7 @@ public class HabitController {
         ApiRespones<Habit> apiRespones = ApiRespones.<Habit>builder()
                 .success(true)
                 .message("Habit created successfully!!!")
-                .status(HttpStatus.OK)
+                .status(HttpStatus.CREATED)
                 .payload(habitService.createHabit(habitRequest))
                 .timestamps(LocalDateTime.now())
                 .build();
