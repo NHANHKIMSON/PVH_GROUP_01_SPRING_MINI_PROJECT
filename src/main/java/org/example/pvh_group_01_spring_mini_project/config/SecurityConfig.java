@@ -2,6 +2,7 @@ package org.example.pvh_group_01_spring_mini_project.config;
 import lombok.AllArgsConstructor;
 import org.example.pvh_group_01_spring_mini_project.jwt.JwtAuthEntryPoint;
 import org.example.pvh_group_01_spring_mini_project.jwt.JwtAuthFilter;
+import org.example.pvh_group_01_spring_mini_project.service.UserAppService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -35,7 +36,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("api/v1/auths/**", "/v3/api-docs/**",
                                 "/swagger-ui/**",
-                                "/swagger-ui.html"
+                                "/swagger-ui.html",
+                                "/api/v1/habits/**",
+                                "/api/v1/files/**"
                         ).permitAll()
                         .anyRequest().permitAll())
                 .sessionManagement(sessionn -> sessionn.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

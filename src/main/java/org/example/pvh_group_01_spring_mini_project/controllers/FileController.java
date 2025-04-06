@@ -1,6 +1,8 @@
 package org.example.pvh_group_01_spring_mini_project.controllers;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import lombok.Builder;
 import lombok.SneakyThrows;
 import org.example.pvh_group_01_spring_mini_project.models.dto.response.ApiRespones;
 import org.example.pvh_group_01_spring_mini_project.models.entity.FileMetaData;
@@ -16,7 +18,8 @@ import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/api/v1/files")
-public class  FileController {
+@SecurityRequirement(name = "bearerAuth")
+public class FileController {
 
     private final FileService fileService;
 

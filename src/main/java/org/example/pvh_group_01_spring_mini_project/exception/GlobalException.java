@@ -13,6 +13,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.net.ConnectException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,7 @@ public class GlobalException {
 
     @ExceptionHandler(BlankInputException.class)
     public ResponseEntity<?> handlerBlankInput(BlankInputException ex){
-        return new ResponseEntity<>(new ErrorRespone(ex.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ErrorRespone(ex.getMessage(), HttpStatus.BAD_REQUEST, LocalDateTime.now()), HttpStatus.BAD_REQUEST);
     }
 
     // handle file exception
@@ -98,6 +99,17 @@ public class GlobalException {
         }
         problemDetail.setProperty("Errors", errors);
         problemDetail.setProperty("Timestamp", LocalDateTime.now());
+        return problemDetail;
+    }
+
+
+    //handle connect to minio exception
+    @ExceptionHandler(ConnectException.class)
+    public  ProblemDetail HandleConnectionMinioException(ConnectException e){
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
+        problemDetail.setTitle("Connection failed");
+        problemDetail.setDetail("Connection is failed ");
+        problemDetail.setProperty("timestamp", LocalDateTime.now());
         return problemDetail;
     }
 }

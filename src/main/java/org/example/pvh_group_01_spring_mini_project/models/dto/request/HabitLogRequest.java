@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.example.pvh_group_01_spring_mini_project.enumeration.Frequency;
+import org.example.pvh_group_01_spring_mini_project.enumeration.Status;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

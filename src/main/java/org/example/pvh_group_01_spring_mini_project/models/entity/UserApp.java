@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import org.example.pvh_group_01_spring_mini_project.util.UUIDTypeHandler;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -28,8 +29,8 @@ public class UserApp extends UUIDTypeHandler  implements UserDetails  {
     private Integer xp;
     private String profileImageUrl;
     private Boolean isVerified;
+    private String otp;
     private LocalDateTime createdAt;
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -37,12 +38,37 @@ public class UserApp extends UUIDTypeHandler  implements UserDetails  {
         authorities.add(new SimpleGrantedAuthority(email));
         return authorities;
     }
-     @Override
+    @Override
     public String getPassword() {
         return password;
     }
-   @Override
+
+    @Override
     public String getUsername() {
-        return email;
+        return username;
     }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return UserDetails.super.isAccountNonExpired();
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return UserDetails.super.isAccountNonLocked();
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return UserDetails.super.isCredentialsNonExpired();
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return isVerified;
+    }
+
+
+
+
 }

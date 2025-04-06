@@ -8,6 +8,13 @@ import org.example.pvh_group_01_spring_mini_project.models.entity.Habit;
 
 import java.util.List;
 import java.util.UUID;
+import org.apache.ibatis.annotations.*;
+import org.example.pvh_group_01_spring_mini_project.models.dto.request.HabitRequest;
+import org.example.pvh_group_01_spring_mini_project.models.entity.Habit;
+import org.example.pvh_group_01_spring_mini_project.util.UUIDTypeHandler;
+
+import java.util.List;
+import java.util.UUID;
 
 @Mapper
 public interface HabitRepository {
@@ -84,3 +91,12 @@ public interface HabitRepository {
     """)
     Habit updateUserLevelByHabitId(@Param("habitId") UUID habitId);
 }
+
+//    @Select("""
+//        INSERT INTO habits(habit_id, title, description, frequency)
+//        VALUES (gen_random_uuid(), #{request.title}, #{request.description}, upper(#{request.frequency}))
+//        RETURNING *;
+//    """)
+//    @ResultMap("habitMapper")
+//    Habit addHabit(@Param("request") HabitRequest habitRequest);
+//}

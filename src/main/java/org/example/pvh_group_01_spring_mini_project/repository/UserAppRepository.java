@@ -10,14 +10,30 @@ import java.util.List;
 
 @Mapper
 public interface UserAppRepository {
-    @Select("""
- 
-            INSERT INTO app_users( app_user_id,username, email, password,profile_image)
- VALUES (gen_random_uuid(),#{request.username}, #{request.email}, #{request.password}, #{request.profileImageUrl} )
- RETURNING *;
- 
-    """)
+//    @Select("""
+//
+//            INSERT INTO app_users( app_user_id,username, email, password,profile_image)
+// VALUES (gen_random_uuid(),#{request.username}, #{request.email}, #{request.password}, #{request.profileImageUrl} )
+// RETURNING *;
+//
+//    """)
+//
+//    @Results(id = "UserAppMapper", value = {
+//            @Result(property = "appUserId", column = "app_user_id", typeHandler = UUIDTypeHandler.class),
+//            @Result(property = "username", column = "username"),
+//            @Result(property = "email", column = "email"),
+//            @Result(property = "level", column = "level"),
+//            @Result(property = "xp", column = "xp"),
+//            @Result(property = "profileImageUrl", column = "profile_image"),
+//            @Result(property = "isVerified", column = "is_verified"),
+//            @Result(property = "createdAt", column = "created_at")
+//    })
+//    UserApp registerProfile(@Param("request") AuthRegisterRequest request);
 
+    @Select("""
+            INSERT INTO app_users (app_user_id,username,email, password,otp,created_at) VALUES (gen_random_uuid(),#{user.username},#{user.email}, #{user.password},#{user.otp},#{user.createdAt})
+            returning *
+            """)
     @Results(id = "UserAppMapper", value = {
             @Result(property = "appUserId", column = "app_user_id", typeHandler = UUIDTypeHandler.class),
             @Result(property = "username", column = "username"),
@@ -28,8 +44,7 @@ public interface UserAppRepository {
             @Result(property = "isVerified", column = "is_verified"),
             @Result(property = "createdAt", column = "created_at")
     })
-    UserApp registerProfile(@Param("request") AuthRegisterRequest request);
-
+    UserApp save(@Param("user") UserApp user);
 
     @Select(
             """
@@ -38,5 +53,26 @@ public interface UserAppRepository {
     )
     @ResultMap("UserAppMapper")
     UserApp getProfileByEmail(String email);
+
+
+    @Select("""
+            SELECT * FROM app_users WHERE email = #{email}
+            """)
+    @ResultMap("UserAppMapper")
+    UserApp findByEmail(String email);
+
+    //
+    @Update("""
+            UPDATE app_users SET is_verified  = #{user.isVerified} WHERE otp = #{user.otp}
+            """)
+//    @ResultMap("UserAppMapper")
+    void update(@Param("user") UserApp user);
+
+    @Select("""
+            UPDATE app_users SET otp = #{user.otp}, created_at = #{user.createdAt} WHERE email = #{user.email} returning *
+            """)
+    @ResultMap("UserAppMapper")
+    UserApp updateOtp(@Param("user") UserApp user);
+
 
 }
