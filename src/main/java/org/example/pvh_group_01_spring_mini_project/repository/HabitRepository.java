@@ -1,55 +1,45 @@
 package org.example.pvh_group_01_spring_mini_project.repository;
 
 import org.apache.ibatis.annotations.*;
-import org.example.pvh_group_01_spring_mini_project.models.dto.request.HabitRequest;
+import org.example.pvh_group_01_spring_mini_project.models.dto.request.HabitLogRequest;
 import org.example.pvh_group_01_spring_mini_project.models.entity.Habit;
 import org.example.pvh_group_01_spring_mini_project.util.UUIDTypeHandler;
 
-import java.util.List;
 import java.util.UUID;
+
 
 @Mapper
 public interface HabitRepository {
+
+    // Write from leap for test get habitLog
     @Select("""
-        SELECT * FROM habits
-        OFFSET (#{page}-1) * #{size}
-        LIMIT #{size}
+        SELECT * FROM habits WHERE habit_id = #{habitId}
+       
     """)
-    @Results(id="habitMapper", value = {
+    @Results(id = "habitMapper", value = {
             @Result(property = "habitId", column = "habit_id", typeHandler = UUIDTypeHandler.class),
+            @Result(property = "title", column = "title"),
+            @Result(property = "description", column = "description"),
+            @Result(property = "frequency", column = "frequency"),
             @Result(property = "isActive", column = "is_active"),
-            @Result(property = "createAt", column = "created_at"),
-            @Result(property = "appUserId", column = "app_user_id", typeHandler = UUIDTypeHandler.class)
+            @Result(property = "appUserResponse", column = "app_user_id", one = @One(select = "org.example.pvh_group_01_spring_mini_project.repository.ProfileRepository.getHabitProfile")),
+            @Result(property = "createAt", column = "created_at")
     })
-    List<Habit> getAllHabits(Integer page, Integer size);
+    Habit getHabitById(@Param("habitId") UUID habitId);
 
     @Select("""
-        SELECT * FROM habits
-        WHERE habit_id = #{habitId}
+        UPDATE app_users
+        SET xp = xp + (
+            SELECT xp_earned
+            FROM habit_logs
+            WHERE habit_id = #{habitId}
+            ORDER BY created_at DESC
+            LIMIT 1
+        )
+        WHERE app_user_id = (
+            SELECT app_user_id FROM habits WHERE habit_id = #{habitId}
+        )
     """)
-    @ResultMap("habitMapper")
-    Habit getHabitById(UUID habitId);
+    Habit updateUserXpByHabitId(UUID habitId);
 
-    @Select("""
-            DELETE FROM habits WHERE habit_id = #{id} returning *;
-            """)
-    @ResultMap("habitMapper")
-    Habit deleteHabit(UUID id);
-
-    @Select("""
-        UPDATE habits
-        SET title = #{request.title}, description = #{request.description}, frequency = #{request.frequency}
-        WHERE habit_id = #{id}
-        returning *
-    """)
-    @ResultMap("habitMapper")
-    Habit updateHabit(UUID id, @Param("request") HabitRequest habitRequest);
-
-    @Select("""
-        INSERT INTO habits(habit_id, title, description, frequency)
-        VALUES (gen_random_uuid(), #{request.title}, #{request.description}, upper(#{request.frequency}))
-        RETURNING *;
-    """)
-    @ResultMap("habitMapper")
-    Habit addHabit(@Param("request") HabitRequest habitRequest);
 }
