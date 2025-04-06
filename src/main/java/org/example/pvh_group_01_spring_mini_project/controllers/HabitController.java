@@ -1,5 +1,7 @@
 package org.example.pvh_group_01_spring_mini_project.controllers;
 
+import jakarta.validation.Valid;
+import org.example.pvh_group_01_spring_mini_project.models.dto.request.HabitRequest;
 import org.example.pvh_group_01_spring_mini_project.models.dto.response.ApiRespones;
 import org.example.pvh_group_01_spring_mini_project.models.entity.Habit;
 import org.example.pvh_group_01_spring_mini_project.service.HabitService;
@@ -43,7 +45,18 @@ public class HabitController {
                 .timestamps(LocalDateTime.now())
                 .build();
         return new ResponseEntity<>(apiRespones, HttpStatus.OK);
+    }
 
+    @PostMapping
+    public ResponseEntity<ApiRespones<Habit>> createHabit(@Valid @RequestBody HabitRequest habitRequest) {
+        ApiRespones<Habit> apiRespones = ApiRespones.<Habit>builder()
+                .success(true)
+                .message("Habit created successfully!!!")
+                .status(HttpStatus.OK)
+                .payload(habitService.createHabit(habitRequest))
+                .timestamps(LocalDateTime.now())
+                .build();
+        return new ResponseEntity<>(apiRespones, HttpStatus.OK);
     }
 
 }

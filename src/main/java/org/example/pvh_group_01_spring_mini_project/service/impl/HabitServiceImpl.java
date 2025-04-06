@@ -7,6 +7,7 @@ import org.example.pvh_group_01_spring_mini_project.service.HabitLogService;
 import org.example.pvh_group_01_spring_mini_project.service.HabitService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,12 +29,16 @@ public class HabitServiceImpl implements HabitService {
 
     @Override
     public Habit getHabitById(UUID habitId) {
-        return null;
+        return habitRepository.getHabitById(habitId);
     }
 
     @Override
     public Habit createHabit(HabitRequest habitRequest) {
-        return null;
+        Habit habit = habitRepository.createHabit(habitRequest);
+        habit.setIsActive(true);
+        habit.setCreateAt(LocalDateTime.now());
+
+        return habit;
     }
 
 
