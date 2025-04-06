@@ -18,7 +18,7 @@ public interface UserAppRepository {
  
     """)
 
-    @Results(id = "profileMapper", value = {
+    @Results(id = "UserAppMapper", value = {
             @Result(property = "appUserId", column = "app_user_id", typeHandler = UUIDTypeHandler.class),
             @Result(property = "username", column = "username"),
             @Result(property = "email", column = "email"),
@@ -36,7 +36,7 @@ public interface UserAppRepository {
         SELECT * FROM app_users where email=#{email}
 """
     )
-    @ResultMap("profileMapper")
-    List<UserApp> getProfileByEmail(String email);
+    @ResultMap("UserAppMapper")
+    UserApp getProfileByEmail(String email);
 
 }
