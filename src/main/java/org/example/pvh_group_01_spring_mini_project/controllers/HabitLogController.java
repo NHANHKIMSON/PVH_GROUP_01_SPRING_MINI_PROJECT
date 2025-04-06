@@ -14,22 +14,5 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/habit-logs")
 public class HabitLogController {
-    private final HabitLogService habitLogService;
 
-    public HabitLogController(HabitLogService habitLogService) {
-        this.habitLogService = habitLogService;
-    }
-
-    @GetMapping
-    public ResponseEntity<ApiRespones<List<HabitLog>>> getAllHabitLogs( ) {
-        List<HabitLog> getHabitLog = habitLogService.getAllHabitLog();
-        ApiRespones<List<HabitLog>> response = ApiRespones.<List<HabitLog>>builder()
-                .message("Habit Log get all successfully")
-                .status(HttpStatus.CREATED)
-                .payload(getHabitLog)
-                .success(true)
-                .timestamps(LocalDateTime.now())
-                .build();
-        return ResponseEntity.status(HttpStatus.OK).body(response);
-    }
 }

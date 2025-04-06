@@ -15,6 +15,5 @@ import java.util.UUID;
 @AllArgsConstructor
 public class HabitLogRequest {
     private Status status; // update
-//    private Integer habitId;
     private UUID habitId;
 }

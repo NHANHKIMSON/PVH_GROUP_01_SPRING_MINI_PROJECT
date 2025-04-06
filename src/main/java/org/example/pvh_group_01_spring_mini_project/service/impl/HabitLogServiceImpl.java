@@ -12,14 +12,5 @@ import java.util.List;
 
 @Service
 public class HabitLogServiceImpl implements HabitLogService {
-    private final HabitLogRepository habitLogRepository;
 
-    public HabitLogServiceImpl(HabitLogRepository habitLogRepository) {
-        this.habitLogRepository = habitLogRepository;
-    }
-
-    @Override
-    public List<HabitLog> getAllHabitLog() {
-        return habitLogRepository.getAllHabitLog();
-    }
 }

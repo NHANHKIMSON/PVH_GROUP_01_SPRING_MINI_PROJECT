@@ -18,7 +18,7 @@ import java.util.UUID;
 public class HabitLog {
     private UUID habitLogId;
     private LocalDate logDate;
-    private Status status;  // update
+    private Status status;
     private Integer xpEarned;
     private Habit habit;
     private LocalDateTime createdAt;
