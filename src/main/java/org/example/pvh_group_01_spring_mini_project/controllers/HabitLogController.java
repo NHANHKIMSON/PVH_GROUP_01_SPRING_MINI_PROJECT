@@ -4,6 +4,7 @@ package org.example.pvh_group_01_spring_mini_project.controllers;
 
 //This is after I have clone and write code from here
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.example.pvh_group_01_spring_mini_project.models.dto.request.HabitLogRequest;
 import org.example.pvh_group_01_spring_mini_project.models.dto.response.ApiRespones;
@@ -29,6 +30,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/habit-logs")
+@SecurityRequirement(name = "bearerAuth")
 public class HabitLogController {
 
     private final HabitLogService habitLogService;
