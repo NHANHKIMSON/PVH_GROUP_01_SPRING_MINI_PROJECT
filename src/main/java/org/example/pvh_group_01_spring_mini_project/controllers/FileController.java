@@ -18,7 +18,6 @@ import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/api/v1/files")
-@SecurityRequirement(name = "bearerAuth")
 public class FileController {
 
     private final FileService fileService;
