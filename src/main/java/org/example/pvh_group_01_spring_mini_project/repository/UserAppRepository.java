@@ -39,4 +39,30 @@ public interface UserAppRepository {
     @ResultMap("UserAppMapper")
     UserApp getProfileByEmail(String email);
 
+    @Select("""
+            SELECT * FROM app_users WHERE email = #{email} LIMIT 1
+            """)
+    @ResultMap("UserAppMapper")
+    UserApp findByEmail(String email);
+
+    @Insert("""
+            INSERT INTO app_users (app_user_id,username,email, password,otp,is_verified,created_at) VALUES (gen_random_uuid(),#{user.username},#{user.email}, #{user.password},#{user.otp},false,#{user.createdAt}) LIMIT 1
+            """)
+    @ResultMap("UserAppMapper")
+    void save(@Param("user") UserApp user);
+
+    //
+    @Update("""
+            UPDATE app_users SET is_verified  = #{user.isVerified} WHERE otp = #{user.otp}
+            """)
+    @ResultMap("UserAppMapper")
+    void update(@Param("user") UserApp user);
+
+    @Update("""
+            UPDATE app_users SET otp = #{user.otp}, created_at = #{user.createdAt} WHERE email = #{user.email}
+            """)
+    @ResultMap("UserAppMapper")
+    void updateOtp(@Param("user") UserApp user);
+
+
 }
