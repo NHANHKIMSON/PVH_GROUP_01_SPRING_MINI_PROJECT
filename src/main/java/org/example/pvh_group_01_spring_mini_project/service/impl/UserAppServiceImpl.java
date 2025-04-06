@@ -73,8 +73,8 @@ public class UserAppServiceImpl implements UserAppService {
             String otp = generateOTP();
             userApp.setOtp(otp);
             userApp.setCreatedAt(LocalDateTime.now());
-            userAppRepository.updateOtp(userApp);
             sendVerificationEmail(email, otp);
+            userAppRepository.updateOtp(userApp);
             return userApp;
         } else {
             throw new RuntimeException("Email Not Found");
