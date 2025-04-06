@@ -1,5 +1,6 @@
 package org.example.pvh_group_01_spring_mini_project.controllers;
 
+import lombok.RequiredArgsConstructor;
 import org.example.pvh_group_01_spring_mini_project.models.dto.response.ApiRespones;
 import org.example.pvh_group_01_spring_mini_project.models.entity.Achievement;
 import org.example.pvh_group_01_spring_mini_project.service.AchievementService;
@@ -15,12 +16,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/achievements")
+@RequiredArgsConstructor
 public class AchievementController {
     private final AchievementService achievementService;
-
-    public AchievementController(AchievementService achievementService) {
-        this.achievementService = achievementService;
-    }
 
     @GetMapping
     public ResponseEntity<ApiRespones<List<Achievement>>> getAll(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "5") Integer size){
