@@ -23,7 +23,7 @@ public interface HabitLogRepository {
             @Result(property = "status", column = "status"),
             @Result(property = "xpEarned", column = "xp_earned"),
             @Result(property = "habit", column = "habit_id",
-                    one = @One(select = "org.example.pvh_group_01_spring_mini_project.repository.HabitRepository.getHabitById")),
+                    one = @One(select = "org.example.pvh_group_01_spring_mini_project.repository.HabitRepository.getHabitById"), typeHandler = UUIDTypeHandler.class),
             @Result(property = "createdAt", column = "created_at")
     })
     List<HabitLog> getAllHabitLog(@Param("offset") Integer offset,

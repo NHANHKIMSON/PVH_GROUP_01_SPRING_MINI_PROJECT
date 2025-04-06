@@ -37,7 +37,7 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"
                         ).permitAll()
-                        .anyRequest().authenticated())
+                        .anyRequest().permitAll())
                 .sessionManagement(sessionn -> sessionn.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(jwtAuthEntrypoint))
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

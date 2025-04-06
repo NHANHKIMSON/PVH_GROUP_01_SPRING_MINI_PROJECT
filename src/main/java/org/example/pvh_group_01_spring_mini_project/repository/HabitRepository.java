@@ -61,7 +61,7 @@ public interface HabitRepository {
 
     @Select("""
          INSERT INTO habits(habit_id, title, description, frequency,is_active, app_user_id , created_at)
-        VALUES (gen_random_uuid(),#{request.title}, #{request.description}, #{request.frequency},true, '2163d25a-1792-4c65-b626-ab0085165b98', now())
+        VALUES (gen_random_uuid(),#{request.title}, #{request.description}, #{request.frequency},true, #{request.appUserResponse}, now())
         RETURNING *
  
     """)
