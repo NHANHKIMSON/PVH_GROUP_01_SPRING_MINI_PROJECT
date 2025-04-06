@@ -1,10 +1,13 @@
 package org.example.pvh_group_01_spring_mini_project.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.example.pvh_group_01_spring_mini_project.models.dto.request.AuthRequest.AuthRegisterRequest;
 import org.example.pvh_group_01_spring_mini_project.models.entity.UserApp;
 import org.example.pvh_group_01_spring_mini_project.repository.UserAppRepository;
 import org.example.pvh_group_01_spring_mini_project.service.UserAppService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.Random;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserAppServiceImpl implements UserAppService {
@@ -80,6 +84,20 @@ public class UserAppServiceImpl implements UserAppService {
             throw new RuntimeException("Email Not Found");
         }
     }
+
+    @Override
+    public UserApp getCurrentUser() {
+        System.out.println("Hello");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        UserApp userApp = userAppRepository.findByEmail(email);
+        if (userApp == null) {
+            throw new RuntimeException("User Not Found");
+        }
+        System.out.println(userApp);
+        return userApp;
+    }
+
 
     @Override
     public void verify(String email, String otp) {

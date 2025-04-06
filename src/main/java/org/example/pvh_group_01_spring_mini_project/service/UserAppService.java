@@ -11,4 +11,6 @@ public interface UserAppService extends UserDetailsService {
     UserApp registerProfile(AuthRegisterRequest authRegisterRequest);
 
     UserApp checkEmail(String email);
+
+    UserApp getCurrentUser();
 }
