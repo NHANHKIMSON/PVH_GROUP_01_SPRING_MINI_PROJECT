@@ -14,7 +14,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 public class Habit {
-    private UUID habitId = UUID.randomUUID();
+    private UUID habitId;
     private String title;
     private String description;
     private Frequency frequency;

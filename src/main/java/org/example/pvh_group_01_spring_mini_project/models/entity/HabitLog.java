@@ -15,7 +15,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 public class HabitLog {
-    private UUID habitLogId = UUID.randomUUID();
+    private UUID habitLogId ;
     private LocalDate logDate;
     private Frequency status;
     private Integer xpEarned;

@@ -1,6 +1,6 @@
-CREATE DATABASE gamified_Habit_Tracker;
+CREATE DATABASE db_ticket;
 
-DROP DATABASE gamified_Habit_Tracker;
+-- DROP DATABASE gamified_Habit_Tracker;
 
 CREATE TABLE achievement(
                             achievement_id uuid PRIMARY KEY,
@@ -94,4 +94,7 @@ SELECT * FROM habits;
 SELECT * FROM achievement;
 SELECT * FROM app_user_achievements;
 SELECT * FROM app_users;
-SELECT * FROM habit_logs
+SELECT * FROM habit_logs;
+
+
+select * from habits;
