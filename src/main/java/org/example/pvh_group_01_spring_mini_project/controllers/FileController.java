@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/api/v1/files")
-public class FileController {
+public class  FileController {
 
     private final FileService fileService;
 
