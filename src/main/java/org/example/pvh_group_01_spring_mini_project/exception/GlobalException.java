@@ -63,21 +63,4 @@ public class GlobalException {
 
         return problemDetail;
     }
-
-
-
-
-//    @ExceptionHandler(MethodArgumentNotValidException.class)
-//    public ProblemDetail handleValidationExceptionErrors(MethodArgumentNotValidException e) {
-//        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, "Something went wrong!!!");
-//        problemDetail.setTitle("Invalid Input");
-//
-//        List<String> errors = new ArrayList<>();
-//        for (FieldError fieldError : e.getBindingResult().getFieldErrors()) {
-//            errors.add(fieldError.getField() + ": " + fieldError.getDefaultMessage());
-//        }
-//        problemDetail.setProperty("Errors", errors);
-//        problemDetail.setProperty("Timestamp", LocalDateTime.now());
-//        return problemDetail;
-//    }
 }
