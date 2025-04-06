@@ -68,8 +68,9 @@ public interface UserAppRepository {
 //    @ResultMap("UserAppMapper")
     void update(@Param("user") UserApp user);
 
-    @Update("""
+    @Select("""
             UPDATE app_users SET otp = #{user.otp}, created_at = #{user.createdAt} WHERE email = #{user.email}
+            RETURNING *
             """)
 //    @ResultMap("UserAppMapper")
     UserApp updateOtp(@Param("user") UserApp user);
