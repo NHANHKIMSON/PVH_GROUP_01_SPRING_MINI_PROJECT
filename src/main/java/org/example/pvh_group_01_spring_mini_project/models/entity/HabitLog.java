@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.example.pvh_group_01_spring_mini_project.enumeration.Frequency;
+import org.example.pvh_group_01_spring_mini_project.enumeration.Status;
 import org.example.pvh_group_01_spring_mini_project.util.UUIDTypeHandler;
 
 import java.time.LocalDate;
@@ -22,4 +23,7 @@ public class HabitLog extends UUIDTypeHandler {
     private Integer xpEarned;
     private Habit habit;
     private LocalDateTime createdAt;
+
+
+
 }
